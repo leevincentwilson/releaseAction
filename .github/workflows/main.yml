@@ -3,13 +3,15 @@ on:
     branches:
       - main
 jobs:
-  test:
-    name: Create a GitHub release
-    uses: ncipollo/release-action@v1
-    with:
-      tag: "1.2"
-      name: "myName"
-      body: "myBNody"
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ncipollo/release-action@v1
+        with:
+          name: "test"
   hello_world_job:
     runs-on: ubuntu-latest
     name: A job to say hello
