@@ -20,7 +20,7 @@ const code = async()=>{
         repo: core.getInput('repo'),
         tag_name: "1.2"
     })
-    console.log('done')
+    console.log('done1')
 }
 try {
   code()
