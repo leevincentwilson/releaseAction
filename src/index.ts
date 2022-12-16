@@ -13,6 +13,7 @@ const code = async()=>{
     // console.log(`The event payload: ${payload}`);
 
     const token = core.getInput('token')
+    console.log('myToken', token)
     const context = github.context
     const git = github.getOctokit(token)
     await git.rest.repos.createRelease({
