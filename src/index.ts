@@ -1,34 +1,53 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
+async function run() {
+    try {
+        await createRelease()
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-const code = async()=>{
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
-    // Get the JSON webhook payload for the event that triggered the workflow
-    // const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // console.log(`The event payload: ${payload}`);
-
+const createRelease = async () =>{
     const token = core.getInput('token')
-    console.log('myToken', token)
-    const context = github.context
     const git = github.getOctokit(token)
-    await git.rest.repos.createRelease({
-        owner: core.getInput('owner'),
-        repo: core.getInput('repo'),
-        tag_name: "1.2"
+    console.log('token',token)
+    console.log('git',git)
+    git.rest.repos.createRelease({
+        owner: getOwner(),
+        repo: getRepo(),
+        tag_name: getTag()
     })
-    console.log('done1')
 }
-try {
-  code()
 
+const getTag = ():string =>{
 
+    const tag = core.getInput('tag')
+    if (tag) {
+        return tag;
+    }
 
-} catch (error) {
-    // @ts-ignore
-    core.setFailed(error.message);
+    const ref = github.context.ref
+    const tagPath = "refs/tags/"
+    if (ref && ref.startsWith(tagPath)) {
+        return ref.substr(tagPath.length, ref.length)
+    }
+
+    throw Error("No tag found in ref or input!")
 }
+const getRepo = ()=>{
+    let repo = core.getInput('repo')
+    if (repo) {
+        return repo
+    }
+    return github.context.repo.repo
+}
+const getOwner = () =>{
+    let owner = core.getInput('owner')
+    if (owner) {
+        return owner
+    }
+    return github.context.repo.owner
+}
+run()
