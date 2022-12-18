@@ -9574,7 +9574,6 @@ const createRelease = () => __awaiter(void 0, void 0, void 0, function* () {
         discussion_category_name: core.getInput('discussion_category_name'),
         generate_release_notes: core.getInput('generate_release_notes') === 'true'
     };
-    console.log('tagName', tag_name);
     git.rest.repos.createRelease(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({ owner,
         repo,
         tag_name }, (target_commitish && { target_commitish })), (name && { name })), (body && { body })), { draft,
