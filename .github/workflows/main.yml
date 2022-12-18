@@ -1,8 +1,9 @@
 on:
   workflow_dispatch:
-    token:
-      description: 'The Github token.'
-      required: false
+    inputs:
+      token:
+        description: 'The Github token.'
+        required: false
       owner:
         description: "The account owner of the repository. The name is not case sensitive. Defaults to the current repositories owner"
         required: false
