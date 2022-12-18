@@ -5,11 +5,11 @@ on:
         description: 'The Github token.'
         required: false
       owner:
-        description: "The account owner of the repository. The name is not case sensitive. Defaults to the current repositories owner"
+        description: "The account owner of the repository."
         required: false
         type: string
       repo:
-        description: "The name of the repository. The name is not case sensitive. Defaults to the current repository"
+        description: "The name of the repository."
         required: false
         type: string
       tag_name:
@@ -17,7 +17,7 @@ on:
         required: false
         type: string
       target_commitish:
-        description: "Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master)."
+        description: "Specifies the commitish value"
         required: false
         type: string
       name:
@@ -29,26 +29,26 @@ on:
         required: false
         type: string
       draft:
-        description: "true to create a draft (unpublished) release, false to create a published one."
+        description: "true to create a draft (unpublished) release"
         required: false
         default: "false"
         type: boolean
       prerelease:
-        description: "true to identify the release as a prerelease. false to identify the release as a full release."
+        description: "true to identify the release as a prerelease."
         required: false
         default: "false"
         type: boolean
       discussion_category_name:
-        description: "If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository."
+        description: "If specified, a discussion of the specified category is created and linked to the release."
         required: false
         type: string
       generate_release_notes:
-        description: "Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes."
+        description: "Whether to automatically generate the name and body for this release."
         required: false
         type: boolean
 jobs:
 
-  hello_world_job:
+  create_release_job:
     runs-on: ubuntu-latest
     name: A job to create a release
     steps:
