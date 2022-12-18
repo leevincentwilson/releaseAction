@@ -43,7 +43,7 @@ const createRelease = async () =>{
     }:Values= {
         owner: core.getInput('owner') || github.context.repo.owner,
         repo: github.context.repo.repo || github.context.repo.repo,
-        tag_name: core.getInput('tag'),
+        tag_name: `tags/${core.getInput('tag')}`,
         target_commitish: core.getInput('target_commitish'),
         name: core.getInput('name'),
         body: core.getInput('body'),
@@ -52,6 +52,8 @@ const createRelease = async () =>{
         discussion_category_name: core.getInput('discussion_category_name'),
         generate_release_notes: core.getInput('generate_release_notes') === 'true'
     }
+
+    console.log('tagName',tag_name)
 
     git.rest.repos.createRelease({
         owner,
