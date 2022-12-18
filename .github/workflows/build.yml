@@ -1,0 +1,24 @@
+name: "PR Checks"
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Install"
+        run: npm ci
+
+      - name: "Build And Package"
+        run: npm buildAndPackage
+
+      - name: "Check packaged code"
+        run: |
+          git diff --exit-code --stat -- . ':!node_modules' \
+          || (echo "##[error] found changed files after build. please 'yarn build && npm run format'" \
+                   "and check in all changes" \
+              && exit 1)

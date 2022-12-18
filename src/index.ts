@@ -5,49 +5,26 @@ async function run() {
     try {
         await createRelease()
     } catch (error) {
-        console.log(error)
+        if (error instanceof Error) {
+            core.setFailed(error.message)
+        }
     }
 }
 
 const createRelease = async () =>{
     const token = core.getInput('token')
     const git = github.getOctokit(token)
-    console.log('token',token)
-    console.log('git',git)
     git.rest.repos.createRelease({
-        owner: getOwner(),
-        repo: getRepo(),
-        tag_name: getTag()
+        owner: core.getInput('owner') || github.context.repo.owner,
+        repo: github.context.repo.repo || github.context.repo.repo,
+        tag_name: core.getInput('tag'),
+        target_commitish: core.getInput('target_commitish'),
+        name: core.getInput('name'),
+        body: core.getInput('body'),
+        draft: core.getInput('draft') ==='true',
+        prerelease: core.getInput('prerelease') ==='true',
+        discussion_category_name: core.getInput('discussion_category_name'),
+        generate_release_notes: core.getInput('generate_release_notes') === 'true'
     })
-}
-
-const getTag = ():string =>{
-
-    const tag = core.getInput('tag')
-    if (tag) {
-        return tag;
-    }
-
-    const ref = github.context.ref
-    const tagPath = "refs/tags/"
-    if (ref && ref.startsWith(tagPath)) {
-        return ref.substr(tagPath.length, ref.length)
-    }
-
-    throw Error("No tag found in ref or input!")
-}
-const getRepo = ()=>{
-    let repo = core.getInput('repo')
-    if (repo) {
-        return repo
-    }
-    return github.context.repo.repo
-}
-const getOwner = () =>{
-    let owner = core.getInput('owner')
-    if (owner) {
-        return owner
-    }
-    return github.context.repo.owner
 }
 run()

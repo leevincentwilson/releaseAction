@@ -1,10 +1,42 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Create Release Notes'
+description: 'Github action to generate release notes via Octokit: https://octokit.github.io/rest.js/v19#repos-create-release'
 inputs:
   token:
     description: 'The Github token.'
     required: false
     default: ${{ github.token }}
+  owner:
+    description: "The account owner of the repository. The name is not case sensitive. Defaults to the current repositories owner"
+    required: false
+  repo:
+    description: "The name of the repository. The name is not case sensitive. Defaults to the current repository"
+    required: false
+  tag_name:
+    description: "The name of the tag."
+    required: false
+  target_commitish:
+    description: "Specifies the commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master)."
+    required: false
+  name:
+    description: "The name of the release."
+    required: false
+  body:
+    description: "Text describing the contents of the tag."
+    required: false
+  draft:
+    description: "true to create a draft (unpublished) release, false to create a published one."
+    required: false
+    default: "false"
+  prerelease:
+    description: "true to identify the release as a prerelease. false to identify the release as a full release."
+    required: false
+    default: "false"
+  discussion_category_name:
+    description: "If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository."
+    required: false
+  generate_release_notes:
+    description: "Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes."
+    required: false
 runs:
   using: 'node16'
   main: 'dist/index.js'
