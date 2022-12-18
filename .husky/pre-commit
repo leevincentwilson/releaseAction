@@ -2,6 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "HELGDLGFDLGFDGLKFDGLKFDLGKFDLGKD"
+
 git diff --exit-code --stat -- . ':!node_modules' \
     || (echo "##[error] found changed files after build. please 'yarn build && npm run format'" \
              "and check in all changes" \
