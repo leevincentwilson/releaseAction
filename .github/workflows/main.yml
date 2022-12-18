@@ -3,7 +3,6 @@ on:
     token:
       description: 'The Github token.'
       required: false
-      default: ${{ github.token }}
       owner:
         description: "The account owner of the repository. The name is not case sensitive. Defaults to the current repositories owner"
         required: false
@@ -57,6 +56,7 @@ jobs:
       - name: Create A Release
         uses: ./ # Uses an action in the root directory
         with:
+          token: ${{ inputs.token }}
           owner: ${{ inputs.owner }}
           repo: ${{ inputs.repo }}
           tag_name: ${{ inputs.tag_name }}
