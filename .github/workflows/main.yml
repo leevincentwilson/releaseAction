@@ -2,17 +2,6 @@ name: "Create Release"
 on:
   workflow_dispatch:
     inputs:
-      token:
-        description: 'The Github token.'
-        required: false
-      owner:
-        description: "The account owner of the repository."
-        required: false
-        type: string
-      repo:
-        description: "The name of the repository."
-        required: false
-        type: string
       tag_name:
         description: "The name of the tag. "
         required: true
