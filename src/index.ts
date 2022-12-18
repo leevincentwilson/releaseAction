@@ -15,7 +15,6 @@ const createRelease = async () =>{
     const token = core.getInput('token')
     const git = github.getOctokit(token)
 
-
     type Values = {
         owner: string,
         repo: string,
@@ -53,8 +52,6 @@ const createRelease = async () =>{
         generate_release_notes: core.getInput('generate_release_notes') === 'true'
     }
 
-    console.log('tagName',tag_name)
-
     git.rest.repos.createRelease({
         owner,
         repo,
@@ -66,8 +63,6 @@ const createRelease = async () =>{
         prerelease,
         ...(discussion_category_name && {discussion_category_name}),
         generate_release_notes
-
-
     })
 }
 run()
