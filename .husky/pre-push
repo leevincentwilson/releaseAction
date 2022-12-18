@@ -1,4 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test
+npm run buildAndPackage
+git diff --exit-code --stat -- . ':!node_modules' \
+    || (echo "##[error] found changed files after build. please use 'npm run buildAndPackage'" \
+             "and check in all changes" \
+        && exit 1)
