@@ -9565,7 +9565,7 @@ const createRelease = () => __awaiter(void 0, void 0, void 0, function* () {
     const { owner, repo, tag_name, target_commitish, name, body, draft, prerelease, discussion_category_name, generate_release_notes } = {
         owner: core.getInput('owner') || github.context.repo.owner,
         repo: github.context.repo.repo || github.context.repo.repo,
-        tag_name: `tags/${core.getInput('tag_name')}`,
+        tag_name: core.getInput('tag_name'),
         target_commitish: core.getInput('target_commitish'),
         name: core.getInput('name'),
         body: core.getInput('body'),

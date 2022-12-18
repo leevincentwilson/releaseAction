@@ -43,7 +43,7 @@ const createRelease = async () =>{
     }:Values= {
         owner: core.getInput('owner') || github.context.repo.owner,
         repo: github.context.repo.repo || github.context.repo.repo,
-        tag_name: `tags/${core.getInput('tag_name')}`,
+        tag_name: core.getInput('tag_name'),
         target_commitish: core.getInput('target_commitish'),
         name: core.getInput('name'),
         body: core.getInput('body'),
